@@ -2,11 +2,29 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Hello World!</title>
-    <link rel="stylesheet" href="index.css" />
+    <title>Video Recroder</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/vue.js" defer></script>
+    <script src="js/app.js" defer></script>
   </head>
   <body>
-    <h1>💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
+    <div id="app" class="container py-5">
+      <h1 class="display-1 text-center">{{ appName }}</h1>
+
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-md-8 offset-2">
+            <select v-model="selectedVideoSource" class="form-select" aria-label="Video Source">
+              <option selected disabled>Select Video Source</option>
+              <option :value="source.id" v-for="source in videoSources" :key="source.id">{{ source.label }}</option>
+            </select>
+          </div>
+
+          <div class="row mt-5">
+            <video ref="video"></video>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

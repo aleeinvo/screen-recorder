@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, desktopCapturer, ipcMain } = require('electron');
 const path = require('path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -12,6 +12,9 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js')
+    }
   });
 
   // and load the index.html of the app.
@@ -21,10 +24,26 @@ const createWindow = () => {
   mainWindow.webContents.openDevTools();
 };
 
+async function getVideoSources() {
+  const videoSources = await desktopCapturer.getSources({
+    types: ['window', 'screen']
+  });
+
+  return videoSources.map(source => {
+    return {
+      id: source.id,
+      label: source.name
+    };
+  });
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', () => {
+  ipcMain.handle('get:video-sources', getVideoSources);
+  createWindow();
+});
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
