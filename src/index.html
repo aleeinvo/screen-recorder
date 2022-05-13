@@ -26,8 +26,8 @@
 
       <div class="row mt-2">
         <div class="col-md-4 offset-4">
-          <button class="btn btn-primary mx-1" @click="start">Start</button>
-          <button class="btn btn-danger mx-1" @click="stop">Stop</button>
+          <button class="btn btn-primary mx-1" @click="start" :disabled="recording">Start</button>
+          <button class="btn btn-danger mx-1" @click="stop" :disabled="!recording">Stop</button>
         </div>
       </div>
 
