@@ -1,7 +1,7 @@
 {
   "name": "screen-recorder",
   "productName": "screen-recorder",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Recored your computer's entire screen or single window",
   "main": "src/index.js",
   "scripts": {
@@ -50,7 +50,7 @@
               "owner": "aleeinvo",
               "name": "screen-recorder"
             },
-            "draft": true 
+            "draft": true
           }
         }
       ]
