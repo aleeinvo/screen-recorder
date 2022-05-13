@@ -11,8 +11,8 @@ if (require('electron-squirrel-startup')) {
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 1280,
-    height: 1024,
+    width: 800,
+    height: 600,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
@@ -43,18 +43,18 @@ const createWindow = () => {
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 };
 
 async function getVideoSources() {
   const videoSources = await desktopCapturer.getSources({
     types: ['window', 'screen']
-  });
+  })
 
   return videoSources.map(source => {
     return {
       id: source.id,
-      label: source.name
+      label: source.name.length > 20 ? source.name.slice(0, 20) + ' ...' : source.name
     };
   });
 }

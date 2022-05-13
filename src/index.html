@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Video Recroder</title>
+  <title>Screen Recroder</title>
   <link rel="stylesheet" href="css/bootstrap.css">
   <script src="js/vue.js" defer></script>
   <script src="js/app.js" defer></script>
@@ -11,14 +11,14 @@
 
 <body>
   <div id="app" class="container py-5">
-    <h1 class="display-1 text-center">{{ appName }}</h1>
+    <h1 class="display-1 text-center">Screen Recorder</h1>
 
 
     <div class="container mt-5">
       <div class="row">
         <div class="col-md-8 offset-2">
+          <p>Please select a source to record</p>
           <select v-model="selectedVideoSource" class="form-select" aria-label="Video Source">
-            <option selected disabled>Select Video Source</option>
             <option :value="source.id" v-for="source in videoSources" :key="source.id">{{ source.label }}</option>
           </select>
         </div>
@@ -35,7 +35,7 @@
         <div class="col-md-6 offset-3">
           <span v-if="recording" class="badge bg-danger text-center">Recording</span>
           <span v-else class="badge bg-success">Stopped</span>
-          <video ref="video" width="600" height="400"></video>
+          <video ref="video" style="width: 40vw; height: 40vh;"></video>
         </div>
       </div>
     </div>

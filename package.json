@@ -1,8 +1,8 @@
 {
-  "name": "video-recorder",
-  "productName": "video-recorder",
+  "name": "screen-recorder",
+  "productName": "screen-recorder",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Recored your computer's entire screen or single window",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -24,7 +24,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "video_recorder"
+            "name": "screen_recorder"
           }
         },
         {

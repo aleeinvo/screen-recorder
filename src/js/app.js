@@ -1,7 +1,6 @@
 const app = Vue.createApp({
     data() {
         return {
-            appName: 'Video Recorder',
             videoSources: [],
             selectedVideoSource: null,
             mediaRecorder: null,
