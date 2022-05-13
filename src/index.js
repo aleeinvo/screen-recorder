@@ -1,4 +1,5 @@
-const { app, BrowserWindow, desktopCapturer, ipcMain } = require('electron');
+const { app, BrowserWindow, desktopCapturer, ipcMain, dialog } = require('electron');
+const { writeFile } = require('fs');
 const path = require('path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -10,12 +11,33 @@ if (require('electron-squirrel-startup')) {
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1280,
+    height: 1024,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
   });
+
+  ipcMain.on('save-video', async (event, arrayBuffer) => {
+    const buffer = Buffer.from(arrayBuffer);
+
+    const { filePath } = await dialog.showSaveDialog(mainWindow, {
+      title: "Save the Recording",
+      defaultPath: path.join(__dirname, `vid-${Date.now()}.webm`),
+      properties: [
+        'createDirectory'
+      ],
+      buttonLabel: 'Save Video'
+    })
+
+    if(filePath) {
+      writeFile(filePath, buffer, error => {
+        if(error) {
+          console.error(error);
+        }
+      })
+    }
+  })
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
